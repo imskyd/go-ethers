@@ -1,4 +1,4 @@
-module go-ethers
+module github.com/imskyd/go-ethers
 
 go 1.23.1
 
