@@ -1,4 +1,4 @@
-module ethers
+module go-ethers
 
 go 1.23.1
 
