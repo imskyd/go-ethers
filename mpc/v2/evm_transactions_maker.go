@@ -2,9 +2,9 @@ package v2
 
 import (
 	"encoding/json"
-	"ethers/abi"
 	coboWaas2 "github.com/CoboGlobal/cobo-waas2-go-sdk/cobo_waas2"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/imskyd/go-ethers/abi"
 	"github.com/shopspring/decimal"
 )
 

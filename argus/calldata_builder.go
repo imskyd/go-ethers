@@ -1,8 +1,8 @@
 package argus
 
 import (
-	"ethers/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/imskyd/go-ethers/abi"
 	"math/big"
 )
 
