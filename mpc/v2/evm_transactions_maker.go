@@ -10,7 +10,7 @@ import (
 
 // TokenTransfer basic token transfer
 // if fee is nil, use cobo calc fee param
-func (m *EvmMpcV2) TokenTransfer(from, to, tokenId, amount string, fee *coboWaas2.TransactionRequestFee) (*coboWaas2.CreateTransferTransaction201Response, error) {
+func (m *EvmMpcV2) ApiTokenTransfer(from, to, tokenId, amount string, fee *coboWaas2.TransactionRequestFee) (*coboWaas2.CreateTransferTransaction201Response, error) {
 	//source
 	mpcSource := coboWaas2.NewMpcTransferSource(coboWaas2.WALLETSUBTYPE_ORG_CONTROLLED, m.walletId)
 	mpcSource.SetAddress(from)
@@ -39,6 +39,18 @@ func (m *EvmMpcV2) TokenTransfer(from, to, tokenId, amount string, fee *coboWaas
 	return m.formatResponse(resp, r, err)
 }
 
+// TokenTransfer basic contract call
+// if fee is nil, use cobo calc fee param
+func (m *EvmMpcV2) TokenTransfer(chainId, from, token, receiver, transferAmount string, fee *coboWaas2.TransactionRequestFee) (*coboWaas2.CreateTransferTransaction201Response, error) {
+	amount, err := decimal.NewFromString(transferAmount)
+	if err != nil {
+		return nil, err
+	}
+	bytes := abi.PackErc20Transfer(receiver, amount.BigInt())
+	resp, err := m.ContractCall(chainId, from, token, "0x"+common.Bytes2Hex(bytes), "", fee)
+	return resp, err
+}
+
 // TokenApprove basic contract call
 // if fee is nil, use cobo calc fee param
 func (m *EvmMpcV2) TokenApprove(chainId, from, token, spender, approveAmount string, fee *coboWaas2.TransactionRequestFee) (*coboWaas2.CreateTransferTransaction201Response, error) {
@@ -49,6 +61,12 @@ func (m *EvmMpcV2) TokenApprove(chainId, from, token, spender, approveAmount str
 	bytes := abi.PackErc20Approve(spender, amount.BigInt())
 	resp, err := m.ContractCall(chainId, from, token, "0x"+common.Bytes2Hex(bytes), "", fee)
 	return resp, err
+}
+
+// NativeTransfer
+// value is formatted, exam: if you want transfer 0.1 eth, value is "0.1"
+func (m *EvmMpcV2) NativeTransfer(chainId, from, to, value string, fee *coboWaas2.TransactionRequestFee) (*coboWaas2.CreateTransferTransaction201Response, error) {
+	return m.ContractCall(chainId, from, to, "0x", value, fee)
 }
 
 // ContractCall basic contract call
