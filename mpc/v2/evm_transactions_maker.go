@@ -87,11 +87,11 @@ func (m *EvmMpcV2) ContractCall(chainId, from, to, callData, value string, fee *
 	return m.formatResponse(resp, r, err)
 }
 
-func (m *EvmMpcV2) Sign191Message(chainID, address, message string, messageType coboWaas2.MessageSignDestinationType) (*coboWaas2.CreateTransferTransaction201Response, error) {
+func (m *EvmMpcV2) Sign191Message(chainID, address, message string) (*coboWaas2.CreateTransferTransaction201Response, error) {
 	mpcSource := coboWaas2.NewMpcMessageSignSource(coboWaas2.MESSAGESIGNSOURCETYPE_ORG_CONTROLLED, m.walletId, address)
 	signSource := coboWaas2.MpcMessageSignSourceAsMessageSignSource(mpcSource)
 
-	signDestination := coboWaas2.NewEvmEIP191MessageSignDestination(messageType, message)
+	signDestination := coboWaas2.NewEvmEIP191MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE__191_SIGNATURE, message)
 	destination := coboWaas2.EvmEIP191MessageSignDestinationAsMessageSignDestination(signDestination)
 
 	messageSignParams := *coboWaas2.NewMessageSignParams(
@@ -104,11 +104,11 @@ func (m *EvmMpcV2) Sign191Message(chainID, address, message string, messageType 
 	return m.formatResponse(resp, r, err)
 }
 
-func (m *EvmMpcV2) Sign712Message(chainID, address string, structuredData map[string]interface{}, messageType coboWaas2.MessageSignDestinationType) (*coboWaas2.CreateTransferTransaction201Response, error) {
+func (m *EvmMpcV2) Sign712Message(chainID, address string, structuredData map[string]interface{}) (*coboWaas2.CreateTransferTransaction201Response, error) {
 	mpcSource := coboWaas2.NewMpcMessageSignSource(coboWaas2.MESSAGESIGNSOURCETYPE_ORG_CONTROLLED, m.walletId, address)
 	signSource := coboWaas2.MpcMessageSignSourceAsMessageSignSource(mpcSource)
 
-	signDestination := coboWaas2.NewEvmEIP712MessageSignDestination(messageType, structuredData)
+	signDestination := coboWaas2.NewEvmEIP712MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE__712_SIGNATURE, structuredData)
 	destination := coboWaas2.EvmEIP712MessageSignDestinationAsMessageSignDestination(signDestination)
 
 	messageSignParams := *coboWaas2.NewMessageSignParams(
