@@ -16,3 +16,9 @@ func (m *EvmMpcV2) ListTokenBalancesForAddress(walletId, address string) (*coboW
 	_, errResp := m.formatResponseCommon(resp, err)
 	return apiResp, errResp
 }
+
+func (m *EvmMpcV2) ListWalletAddresses(walletId string) (*coboWaas2.ListAddresses200Response, error) {
+	apiResp, resp, err := m.client.WalletsAPI.ListAddresses(m.getCtx(), walletId).Execute()
+	_, errResp := m.formatResponseCommon(resp, err)
+	return apiResp, errResp
+}
