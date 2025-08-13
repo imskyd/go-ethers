@@ -73,6 +73,10 @@ func (m *EvmMpcV2) WalletId() string {
 	return m.walletId
 }
 
+func (m *EvmMpcV2) Client() *coboWaas2.APIClient {
+	return m.client
+}
+
 func (m *EvmMpcV2) getCtx() context.Context {
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, coboWaas2.ContextEnv, m.env)

@@ -3,7 +3,7 @@ module github.com/imskyd/go-ethers
 go 1.23.1
 
 require (
-	github.com/CoboGlobal/cobo-waas2-go-sdk v1.6.1
+	github.com/CoboGlobal/cobo-waas2-go-sdk v1.21.0
 	github.com/ethereum/go-ethereum v1.14.12
 	github.com/imroc/req/v3 v3.49.0
 	github.com/metachris/flashbotsrpc v0.7.1

@@ -109,7 +109,7 @@ func (m *EvmMpcV2) Sign191Message(chainID, address, message string) (*coboWaas2.
 	mpcSource := coboWaas2.NewMpcMessageSignSource(coboWaas2.MESSAGESIGNSOURCETYPE_ORG_CONTROLLED, m.walletId, address)
 	signSource := coboWaas2.MpcMessageSignSourceAsMessageSignSource(mpcSource)
 
-	signDestination := coboWaas2.NewEvmEIP191MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE__191_SIGNATURE, message)
+	signDestination := coboWaas2.NewEvmEIP191MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE_EVM_EIP_191_SIGNATURE, message)
 	destination := coboWaas2.EvmEIP191MessageSignDestinationAsMessageSignDestination(signDestination)
 
 	messageSignParams := *coboWaas2.NewMessageSignParams(
@@ -126,7 +126,7 @@ func (m *EvmMpcV2) Sign712Message(chainID, address string, structuredData map[st
 	mpcSource := coboWaas2.NewMpcMessageSignSource(coboWaas2.MESSAGESIGNSOURCETYPE_ORG_CONTROLLED, m.walletId, address)
 	signSource := coboWaas2.MpcMessageSignSourceAsMessageSignSource(mpcSource)
 
-	signDestination := coboWaas2.NewEvmEIP712MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE__712_SIGNATURE, structuredData)
+	signDestination := coboWaas2.NewEvmEIP712MessageSignDestination(coboWaas2.MESSAGESIGNDESTINATIONTYPE_EVM_EIP_712_SIGNATURE, structuredData)
 	destination := coboWaas2.EvmEIP712MessageSignDestinationAsMessageSignDestination(signDestination)
 
 	messageSignParams := *coboWaas2.NewMessageSignParams(
